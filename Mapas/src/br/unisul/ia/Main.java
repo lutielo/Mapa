@@ -5,7 +5,6 @@ import br.unisul.ia.Mapa;
 public class Main {
 	public static void main(String[] args) {
 		Mapa mapa = new Mapa();
-		mapa.popularEstados();
 		mapa.gerarGrafo(false, "original");
 
 		mapa.colorirEstados();
