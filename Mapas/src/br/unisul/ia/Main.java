@@ -7,13 +7,13 @@ public class Main {
 		Mapa mapa = new Mapa();
 		mapa.gerarGrafo(false, "original");
 
-		mapa.colorirEstados();
+		mapa.colorirEstadosDoMapa();
 		mapa.gerarGrafo(true, "colorido");
-		mapa.contarEstadosColoridos();
+		mapa.imprimeNumerosDeEstadosPintadosPorCor();
 		
 		System.out.println("");
 		mapa.equilibrarCores();
 		mapa.gerarGrafo(true, "equilibrado");
-		mapa.contarEstadosColoridos();
+		mapa.imprimeNumerosDeEstadosPintadosPorCor();
 	}
 }
