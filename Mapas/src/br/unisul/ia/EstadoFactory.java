@@ -7,7 +7,7 @@ import java.util.List;
 public class EstadoFactory {
 
 	static List<Estado> estados = new ArrayList<Estado>();
-	static List<Aresta> arestas = new ArrayList<Aresta>();
+	static List<Fronteira> fronteiras = new ArrayList<Fronteira>();
 
 	public static List<Estado> popularEstados() {
 		Estado rs = criaRioGrandeDoSul();
@@ -375,6 +375,7 @@ public class EstadoFactory {
 			Estado se, Estado pb, Estado pi, Estado ce, Estado rn, Estado ma,
 			Estado am, Estado ap, Estado ac, Estado pa, Estado rr, Estado ro,
 			Estado to) {
+		
 		estados.add(rs);
 		estados.add(sc);
 		estados.add(pr);
@@ -408,26 +409,26 @@ public class EstadoFactory {
 		// Ordena os estados de forma decrescente em relação ao número de vizinhos
 		Collections.sort(estados, new ComparadorEstado());
 
-		System.out.println("Populando arestas");
+		System.out.println("Populando fronteiras");
 		for (Estado estado : estados) {
 			for (Estado vizinho : estado.getEstadosVizinhos()) {
-				popularArestas(estado, vizinho);
+				popularFronteiras(estado, vizinho);
 			}
 		}
 		System.out.println("");
 	}
 
-	public static void popularArestas(Estado estado, Estado vizinho) {
-		String nome = estado.getUf() + " -> " + vizinho.getUf();
+	public static void popularFronteiras(Estado estado, Estado vizinho) {
+		String nome = estado.getUf() + " ~ " + vizinho.getUf();
 		System.out.println(nome);
 
-		arestas.add(new Aresta(nome, estado, vizinho));
+		fronteiras.add(new Fronteira(nome, estado, vizinho));
 
 		Estado estadoOrigem = null;
-		for (int i = 0; i < arestas.size(); i++) {
-			estadoOrigem = arestas.get(i).getEstadoOrigem();
+		for (int i = 0; i < fronteiras.size(); i++) {
+			estadoOrigem = fronteiras.get(i).getEstado();
 			if (vizinho.equals(estadoOrigem)) {
-				arestas.remove(arestas.size() - 1);
+				fronteiras.remove(fronteiras.size() - 1);
 				break;
 			}
 		}
