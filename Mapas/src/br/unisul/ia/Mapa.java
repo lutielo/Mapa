@@ -20,7 +20,7 @@ public class Mapa {
 	}
 
 	public void colorirEstado(Estado estado) {
-		for (CorDoEstado cor : coresDisponiveisParaPintura) {
+		for (CorDoEstado cor : this.coresDisponiveisParaPintura) {
 			boolean estadoPodeSerColorido = true;
 			for (Estado vizinho : estado.getEstadosVizinhos()) {
 				if (vizinho.isColorido()) {
@@ -74,7 +74,7 @@ public class Mapa {
 	public void equilibrarCores() {
 		limparCoresDosEstados();
 
-		int mediaDeCores = this.estados.size() / coresDisponiveisParaPintura.size();
+		int mediaDeCores = this.estados.size() / this.coresDisponiveisParaPintura.size();
 		int maximoDeCores = mediaDeCores + 1;
 
 		List<Estado> estadosPintados = new ArrayList<Estado>();
@@ -82,7 +82,7 @@ public class Mapa {
 		int contador = 0, posicaoEstado = 0;
 		CorDoEstado corEstado = null, corDisponivel = null;
 
-		Estado estadoVigente = null;
+		Estado estadoAtual = null;
 
 		Map<CorDoEstado, Integer> quantidadesPorCor = new HashMap<CorDoEstado, Integer>();
 		quantidadesPorCor.put(CorDoEstado.AZUL, 0);
@@ -91,28 +91,28 @@ public class Mapa {
 		quantidadesPorCor.put(CorDoEstado.VERMELHO, 0);
 
 		while (estadosPintados.size() != this.estados.size()) {
-			estadoVigente = estados.get(posicaoEstado);
+			estadoAtual = this.estados.get(posicaoEstado);
 
-			for (int i = contador; i < coresDisponiveisParaPintura.size();) {
-				corEstado = coresDisponiveisParaPintura.get(i);
+			for (int i = contador; i < this.coresDisponiveisParaPintura.size();) {
+				corEstado = this.coresDisponiveisParaPintura.get(i);
 				corDisponivel = this.obterCorDisponivel(quantidadesPorCor, maximoDeCores);
-				if (estadoPodeSerPintado(estadosPintados, estadoVigente, corDisponivel)) {
-					estadoVigente.setCorDoEstado(corDisponivel);
-					this.estados.set(posicaoEstado, estadoVigente);
-					estadosPintados.add(estadoVigente);
+				if (estadoPodeSerPintado(estadosPintados, estadoAtual, corDisponivel)) {
+					estadoAtual.setCorDoEstado(corDisponivel);
+					this.estados.set(posicaoEstado, estadoAtual);
+					estadosPintados.add(estadoAtual);
 					quantidadesPorCor.put(corDisponivel, quantidadesPorCor.get(corDisponivel) + 1);
 					posicaoEstado++;
-				} else if (estadoPodeSerPintado(estadosPintados, estadoVigente, corEstado)) {
-					estadoVigente.setCorDoEstado(corEstado);
-					this.estados.set(posicaoEstado, estadoVigente);
-					estadosPintados.add(estadoVigente);
+				} else if (estadoPodeSerPintado(estadosPintados, estadoAtual, corEstado)) {
+					estadoAtual.setCorDoEstado(corEstado);
+					this.estados.set(posicaoEstado, estadoAtual);
+					estadosPintados.add(estadoAtual);
 					quantidadesPorCor.put(corEstado, quantidadesPorCor.get(corEstado) + 1);
 					posicaoEstado++;
 				}
-				contador = i++;
+				contador = ++i;
 				break;
 			}
-			if (contador == coresDisponiveisParaPintura.size()) {
+			if (contador == this.coresDisponiveisParaPintura.size()) {
 				contador = 0;
 			}
 		}
