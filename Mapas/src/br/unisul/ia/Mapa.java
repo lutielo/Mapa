@@ -65,11 +65,9 @@ public class Mapa {
 		System.out.println("Número de estados pintados com Vermelha: " + numeroEstadosCorVermelha);
 	}
 
-	public void gerarGrafo(boolean colorir, String nomeArquivo) {
+	public void gerarGrafo() {
 		for (Estado estado : estados) {
-			if (colorir) {
-				System.out.println("Estado: " + estado.getUf() + " | Cor: " + estado.getCorDoEstado());
-			}
+			System.out.println("Estado: " + estado.getUf() + " | Cor: " + estado.getCorDoEstado());
 		}
 	}
 
