@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class Mapa {
 	List<Estado> estados = EstadoFactory.popularEstados();
-	List<CorEstado> coresEstados = Arrays.asList(CorEstado.values());
+	List<CorDoEstado> coresEstados = Arrays.asList(CorDoEstado.values());
 
 	public void colorirEstados() {
 		for (Estado estado : estados) {
@@ -20,23 +20,23 @@ public class Mapa {
 	}
 
 	public void colorirEstado(Estado estado) {
-		CorEstado corEstado = null;
-		for (CorEstado cor : coresEstados) {
+		CorDoEstado corDoEstado = null;
+		for (CorDoEstado cor : coresEstados) {
 			boolean podeSerColorido = true;
 			for (Estado vizinho : estado.getEstadosVizinhos()) {
 				if (vizinho.isColorido()) {
-					if (vizinho.getCorEstado().equals(cor)) {
+					if (vizinho.getCorDoEstado().equals(cor)) {
 						podeSerColorido = false;
 						break;
 					}
 				}
 			}
 			if (podeSerColorido) {
-				corEstado = cor;
+				corDoEstado = cor;
 				break;
 			}
 		}
-		estado.setCorEstado(corEstado);
+		estado.setCorDoEstado(corDoEstado);
 	}
 
 	public void contarEstadosColoridos() {
@@ -46,11 +46,11 @@ public class Mapa {
 		int contadorVermelho = 0;
 
 		for (Estado estado : estados) {
-			if (estado.getCorEstado().equals(CorEstado.AZUL)) {
+			if (estado.getCorDoEstado().equals(CorDoEstado.AZUL)) {
 				contadorAzul++;
-			} else if (estado.getCorEstado().equals(CorEstado.AMARELO)) {
+			} else if (estado.getCorDoEstado().equals(CorDoEstado.AMARELO)) {
 				contadorAmarelo++;
-			} else if (estado.getCorEstado().equals(CorEstado.VERDE)) {
+			} else if (estado.getCorDoEstado().equals(CorDoEstado.VERDE)) {
 				contadorVerde++;
 			} else {
 				contadorVermelho++;
@@ -58,19 +58,15 @@ public class Mapa {
 		}
 
 		System.out.println("Estados pintados com a cor Azul: " + contadorAzul);
-		System.out.println("Estados pintados com a cor Amarela: "
-				+ contadorAmarelo);
-		System.out
-				.println("Estados pintados com a cor Verde: " + contadorVerde);
-		System.out.println("Estados pintados com a cor Vermelha: "
-				+ contadorVermelho);
+		System.out.println("Estados pintados com a cor Amarela: " + contadorAmarelo);
+		System.out.println("Estados pintados com a cor Verde: " + contadorVerde);
+		System.out.println("Estados pintados com a cor Vermelha: " + contadorVermelho);
 	}
 
 	public void gerarGrafo(boolean colorir, String nomeArquivo) {
 		for (Estado estado : estados) {
 			if (colorir) {
-				System.out.println("Estado: " + estado.getSigla() + "/ Cor: "
-						+ estado.getCorEstado());
+				System.out.println("Estado: " + estado.getUf() + " | Cor: " + estado.getCorDoEstado());
 			}
 		}
 	}
@@ -84,76 +80,69 @@ public class Mapa {
 		List<Estado> estadosPintados = new ArrayList<Estado>();
 
 		int contador = 0, posicaoEstado = 0;
-		CorEstado corEstado = null, corDisponivel = null;
+		CorDoEstado corEstado = null, corDisponivel = null;
 
 		Estado estadoVigente = null;
 
-		Map<CorEstado, Integer> quantidadesPorCor = new HashMap<CorEstado, Integer>();
-		quantidadesPorCor.put(CorEstado.AZUL, 0);
-		quantidadesPorCor.put(CorEstado.AMARELO, 0);
-		quantidadesPorCor.put(CorEstado.VERDE, 0);
-		quantidadesPorCor.put(CorEstado.VERMELHO, 0);
+		Map<CorDoEstado, Integer> quantidadesPorCor = new HashMap<CorDoEstado, Integer>();
+		quantidadesPorCor.put(CorDoEstado.AZUL, 0);
+		quantidadesPorCor.put(CorDoEstado.AMARELO, 0);
+		quantidadesPorCor.put(CorDoEstado.VERDE, 0);
+		quantidadesPorCor.put(CorDoEstado.VERMELHO, 0);
 
 		while (estadosPintados.size() != estados.size()) {
 			estadoVigente = estados.get(posicaoEstado);
 
 			for (int i = contador; i < coresEstados.size();) {
 				corEstado = coresEstados.get(i);
-				corDisponivel = this.obterCorDisponivel(quantidadesPorCor,
-						maximoDeCores);
-				if (estadoPodeSerPintado(estadosPintados, estadoVigente,
-						corDisponivel)) {
-					estadoVigente.setCorEstado(corDisponivel);
+				corDisponivel = this.obterCorDisponivel(quantidadesPorCor, maximoDeCores);
+				if (estadoPodeSerPintado(estadosPintados, estadoVigente, corDisponivel)) {
+					estadoVigente.setCorDoEstado(corDisponivel);
 					estados.set(posicaoEstado, estadoVigente);
 					estadosPintados.add(estadoVigente);
-					quantidadesPorCor.put(corDisponivel,
-							quantidadesPorCor.get(corDisponivel) + 1);
+					quantidadesPorCor.put(corDisponivel, quantidadesPorCor.get(corDisponivel) + 1);
 					posicaoEstado++;
-				} else if (estadoPodeSerPintado(estadosPintados, estadoVigente,
-						corEstado)) {
-					estadoVigente.setCorEstado(corEstado);
+				} else if (estadoPodeSerPintado(estadosPintados, estadoVigente,	corEstado)) {
+					estadoVigente.setCorDoEstado(corEstado);
 					estados.set(posicaoEstado, estadoVigente);
 					estadosPintados.add(estadoVigente);
-					quantidadesPorCor.put(corEstado,
-							quantidadesPorCor.get(corEstado) + 1);
+					quantidadesPorCor.put(corEstado, quantidadesPorCor.get(corEstado) + 1);
 					posicaoEstado++;
 				}
 				contador = ++i;
 				break;
 			}
-			if (contador == coresEstados.size())
+			if (contador == coresEstados.size()) {
 				contador = 0;
+			}
 		}
 	}
 
 	private void limparCoresDosEstados() {
 		for (Estado estado : estados) {
-			estado.setCorEstado(null);
+			estado.setCorDoEstado(null);
 		}
 	}
 
-	private CorEstado obterCorDisponivel(
-			Map<CorEstado, Integer> mapCoresQuantidade, int maximoDeCores) {
-		Integer quantidadeAzul = mapCoresQuantidade.get(CorEstado.AZUL);
-		Integer quantidadeAmarelo = mapCoresQuantidade.get(CorEstado.AMARELO);
-		Integer quantidadeVerde = mapCoresQuantidade.get(CorEstado.VERDE);
+	private CorDoEstado obterCorDisponivel(Map<CorDoEstado, Integer> mapCoresQuantidade, int maximoDeCores) {
+		Integer quantidadeAzul = mapCoresQuantidade.get(CorDoEstado.AZUL);
+		Integer quantidadeAmarelo = mapCoresQuantidade.get(CorDoEstado.AMARELO);
+		Integer quantidadeVerde = mapCoresQuantidade.get(CorDoEstado.VERDE);
 
 		if (quantidadeAzul < maximoDeCores)
-			return CorEstado.AZUL;
+			return CorDoEstado.AZUL;
 		else if (quantidadeAmarelo < maximoDeCores)
-			return CorEstado.AMARELO;
+			return CorDoEstado.AMARELO;
 		else if (quantidadeVerde < maximoDeCores)
-			return CorEstado.VERDE;
+			return CorDoEstado.VERDE;
 		else
-			return CorEstado.VERMELHO;
+			return CorDoEstado.VERMELHO;
 	}
 
-	private boolean estadoPodeSerPintado(List<Estado> estadosPintados,
-			Estado estado, CorEstado corEstado) {
+	private boolean estadoPodeSerPintado(List<Estado> estadosPintados, Estado estado, CorDoEstado corEstado) {
 		if (!estadosPintados.contains(estado)) {
 			for (Estado vizinho : estado.getEstadosVizinhos()) {
-				if (corEstado.equals(vizinho.getCorEstado()))
-					return false;
+				if (corEstado.equals(vizinho.getCorDoEstado())) return false;
 			}
 		} else {
 			return false;

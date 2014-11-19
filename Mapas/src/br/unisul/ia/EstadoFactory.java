@@ -10,43 +10,154 @@ public class EstadoFactory {
 	static List<Aresta> arestas = new ArrayList<Aresta>();
 
 	public static List<Estado> popularEstados() {
-		// Região Sul
-		Estado rs = new Estado("Rio Grande do Sul", "RS");
-		Estado sc = new Estado("Santa Catarina", "SC");
-		Estado pr = new Estado("Paraná", "PR");
+		Estado rs = criaRioGrandeDoSul();
+		Estado sc = criaSantaCatarina();
+		Estado pr = criaParaná();
+		Estado sp = criaSaoPaulo();
+		Estado mg = criaMinasGerais();
+		Estado es = criaEspiritoSanto();
+		Estado rj = criaRioDeJaneiro();
+		Estado ms = criaMatoGrossoDoSul();
+		Estado mt = criaMatoGrosso();
+		Estado go = criaGoias();
+		Estado df = criaDistritoFederal();
+		Estado ba = criaBahia();
+		Estado pe = criaPernambuco();
+		Estado al = criaAlagoas();
+		Estado se = criaSergipe();
+		Estado pb = criaParaiba();
+		Estado pi = criaPiaui();
+		Estado ce = criaCeara();
+		Estado rn = criaRioGrandeDoNorte();
+		Estado ma = criaMaranhao();
+		Estado am = criaAmazonas();
+		Estado ap = criaAmapa();
+		Estado ac = criaAcre();
+		Estado pa = criaPara();
+		Estado rr = criaRoraima();
+		Estado ro = criaRondonia();
+		Estado to = criaTocantins();
 
-		// Região Sudeste
-		Estado sp = new Estado("São Paulo", "SP");
-		Estado mg = new Estado("Minas Gerais", "MG");
-		Estado es = new Estado("Espírito Santo", "ES");
-		Estado rj = new Estado("Rio de Janeiro", "RJ");
+		relacionaEstadosVizinhos(rs, sc, pr, sp, mg, es, rj, ms, mt, go, df, ba, pe, al, se, pb, pi, ce, rn, ma, am, ap, ac, pa, rr, ro, to);
+		adicionaEstadosComVizinhosNaLista(rs, sc, pr, sp, mg, es, rj, ms, mt, go, df, ba, pe, al, se, pb, pi, ce, rn, ma, am, ap, ac, pa, rr, ro, to);
+		ordenaEstados();
+		return estados;
+	}
 
-		// Região Centro-Oeste
-		Estado ms = new Estado("Mato Grosso do Sul", "MS");
-		Estado mt = new Estado("Mato Grosso", "MT");
-		Estado go = new Estado("Goiás", "GO");
-		Estado df = new Estado("Distrito Federal", "DF");
+	private static Estado criaMatoGrosso() {
+		return new Estado("Mato Grosso", "MT");
+	}
 
-		// Região Nordeste
-		Estado ba = new Estado("Bahia", "BA");
-		Estado pe = new Estado("Pernambuco", "PE");
-		Estado al = new Estado("Alagoas", "AL");
-		Estado se = new Estado("Sergipe", "SE");
-		Estado pb = new Estado("Paraíba", "PB");
-		Estado pi = new Estado("Piauí", "PI");
-		Estado ce = new Estado("Ceará", "CE");
-		Estado rn = new Estado("Rio Grande do Norte", "RN");
-		Estado ma = new Estado("Maranhão", "MA");
+	private static Estado criaRioGrandeDoSul() {
+		return new Estado("Rio Grande do Sul", "RS");
+	}
+	
+	private static Estado criaSantaCatarina() {
+		return new Estado("Santa Catarina", "SC");
+	}
+	
+	private static Estado criaParaná() {
+		return new Estado("Paraná", "PR");
+	}
+	
+	private static Estado criaSaoPaulo() {
+		return new Estado("São Paulo", "SP");
+	}
+	
+	private static Estado criaMinasGerais() {
+		return new Estado("Minas Gerais", "MG");
+	}
+	
+	private static Estado criaEspiritoSanto() {
+		return new Estado("Espírito Santo", "ES");
+	}
+	
+	private static Estado criaRioDeJaneiro() {
+		return new Estado("Rio de Janeiro", "RJ");
+	}
+	
+	private static Estado criaMatoGrossoDoSul() {
+		return new Estado("Mato Grosso do Sul", "MS");
+	}
+	
+	private static Estado criaGoias() {
+		return new Estado("Goiás", "GO");
+	}
+	
+	private static Estado criaDistritoFederal() {
+		return new Estado("Distrito Federal", "DF");
+	}
+	
+	private static Estado criaBahia() {
+		return new Estado("Bahia", "BA");
+	}
+	
+	private static Estado criaPernambuco() {
+		return new Estado("Pernambuco", "PE");
+	}
+	
+	private static Estado criaAlagoas() {
+		return new Estado("Alagoas", "AL");
+	}
+	
+	private static Estado criaSergipe() {
+		return new Estado("Sergipe", "SE");
+	}
+	
+	private static Estado criaParaiba() {
+		return new Estado("Paraíba", "PB");
+	}
 
-		// Região Norte
-		Estado am = new Estado("Amazonas", "AM");
-		Estado ap = new Estado("Amapá", "AP");
-		Estado ac = new Estado("Acre", "AC");
-		Estado pa = new Estado("Pará", "PA");
-		Estado rr = new Estado("Roraima", "RR");
-		Estado ro = new Estado("Rondônia", "RO");
-		Estado to = new Estado("Tocantins", "TO");
+	private static Estado criaPiaui() {
+		return new Estado("Piauí", "PI");
+	}
+	
+	private static Estado criaCeara() {
+		return new Estado("Ceará", "CE");
+	}
+	
+	private static Estado criaRioGrandeDoNorte() {
+		return new Estado("Rio Grande do Norte", "RN");
+	}
+	
+	private static Estado criaMaranhao() {
+		return new Estado("Maranhão", "MA");
+	}
+	
+	private static Estado criaAmazonas() {
+		return new Estado("Amazonas", "AM");
+	}
+	
+	private static Estado criaAmapa() {
+		return new Estado("Amapá", "AP");
+	}
+	
+	private static Estado criaAcre() {
+		return new Estado("Acre", "AC");
+	}
+	
+	private static Estado criaPara() {
+		return new Estado("Pará", "PA");
+	}
+	
+	private static Estado criaRoraima() {
+		return new Estado("Roraima", "RR");
+	}
+	
+	private static Estado criaRondonia() {
+		return new Estado("Rondônia", "RO");
+	}
+	
+	private static Estado criaTocantins() {
+		return new Estado("Tocantins", "TO");
+	}
 
+	private static void relacionaEstadosVizinhos(Estado rs, Estado sc,
+			Estado pr, Estado sp, Estado mg, Estado es, Estado rj, Estado ms,
+			Estado mt, Estado go, Estado df, Estado ba, Estado pe, Estado al,
+			Estado se, Estado pb, Estado pi, Estado ce, Estado rn, Estado ma,
+			Estado am, Estado ap, Estado ac, Estado pa, Estado rr, Estado ro,
+			Estado to) {
 		// RS -> SC
 		List<Estado> vizinhosRS = new ArrayList<Estado>();
 		vizinhosRS.add(sc);
@@ -256,25 +367,25 @@ public class EstadoFactory {
 		vizinhosTO.add(mt);
 		vizinhosTO.add(pa);
 		to.setEstadosVizinhos(vizinhosTO);
-
-		// Região Sul
+	}
+	
+	private static void adicionaEstadosComVizinhosNaLista(Estado rs, Estado sc,
+			Estado pr, Estado sp, Estado mg, Estado es, Estado rj, Estado ms,
+			Estado mt, Estado go, Estado df, Estado ba, Estado pe, Estado al,
+			Estado se, Estado pb, Estado pi, Estado ce, Estado rn, Estado ma,
+			Estado am, Estado ap, Estado ac, Estado pa, Estado rr, Estado ro,
+			Estado to) {
 		estados.add(rs);
 		estados.add(sc);
 		estados.add(pr);
-
-		// Região Sudeste
 		estados.add(sp);
 		estados.add(mg);
 		estados.add(es);
 		estados.add(rj);
-
-		// Região Centro-Oeste
 		estados.add(ms);
 		estados.add(mt);
 		estados.add(go);
 		estados.add(df);
-
-		// Região Nordeste
 		estados.add(ba);
 		estados.add(pe);
 		estados.add(al);
@@ -284,8 +395,6 @@ public class EstadoFactory {
 		estados.add(ce);
 		estados.add(rn);
 		estados.add(ma);
-
-		// Região Norte
 		estados.add(am);
 		estados.add(ap);
 		estados.add(ac);
@@ -293,16 +402,10 @@ public class EstadoFactory {
 		estados.add(rr);
 		estados.add(ro);
 		estados.add(to);
-
-		ordenaEstados();
-
-		return estados;
-
 	}
-
+	
 	public static void ordenaEstados() {
-		// Ordena os estados de forma decrescente em relação ao número de
-		// vizinhos
+		// Ordena os estados de forma decrescente em relação ao número de vizinhos
 		Collections.sort(estados, new ComparadorEstado());
 
 		System.out.println("Populando arestas");
@@ -315,8 +418,7 @@ public class EstadoFactory {
 	}
 
 	public static void popularArestas(Estado estado, Estado vizinho) {
-		String nome = estado.getSigla() + " -> " + vizinho.getSigla();
-
+		String nome = estado.getUf() + " -> " + vizinho.getUf();
 		System.out.println(nome);
 
 		arestas.add(new Aresta(nome, estado, vizinho));
