@@ -58,7 +58,7 @@ public class Mapa {
 				numeroEstadosCorVermelha++;
 			}
 		}
-
+		System.out.println("");
 		System.out.println("Número de estados pintados com Azul: " + numeroEstadosCorAzul);
 		System.out.println("Número de estados pintados com Amarelo: " + numeroEstadosCorAmarela);
 		System.out.println("Número de estados pintados com Verde: " + numeroEstadosCorVerde);
@@ -66,6 +66,7 @@ public class Mapa {
 	}
 
 	public void imprimirEstadoCor() {
+		System.out.println("");
 		for (Estado estado : this.estados) {
 			System.out.println("Estado: " + estado.getUf() + " | Cor: " + estado.getCorDoEstado());
 		}

@@ -388,7 +388,6 @@ public class EstadoFactory {
 				popularFronteiras(estado, vizinho);
 			}
 		}
-		System.out.println("");
 	}
 
 	public static void popularFronteiras(Estado estado, Estado vizinho) {
